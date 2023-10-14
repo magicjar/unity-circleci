@@ -6,8 +6,7 @@ orbs:
 workflows:
   create-unity-activation-file:
       jobs:
-        - unity/create-activation-file:
-            editor_version: 2022.3.10f1
+        - unity/create-activation-file
   # build-unity-project:
   #   jobs:
   #     - unity/build:
