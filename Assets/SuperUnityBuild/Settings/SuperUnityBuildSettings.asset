@@ -124,7 +124,7 @@ MonoBehaviour:
     showBuildInfo: 0
     hideDisabled: 0
     treeView: 0
-    selectedKeyChain: PROD/Android/Android (ARMv7+ARM64,Generic,App,AAB,Single Binary,Auto,Auto,Public)/IL2CPP
+    selectedKeyChain: PROD/PC/Windows x64 (App)/Mono
   _preBuildActions:
     buildActions: []
   _postBuildActions:
