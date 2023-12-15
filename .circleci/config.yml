@@ -3,11 +3,58 @@ version: 2.1
 orbs:
   unity: game-ci/unity@1.7.0
 
+# ================================== Start License ================================== #
+executors:
+  my-custom-executor:
+    docker:
+      - image: unityci/editor:ubuntu-<<parameters.editor_version>>-base-3.0.0
+    parameters:
+      editor_version:
+        default: 2022.3.10f1
+        type: string
+    resource_class: medium
+
+jobs:
+  custom-unity-activation:
+    executor: my-custom-executor
+    steps:
+      - checkout
+      - run:
+          command: |-
+            #!/bin/false
+            # shellcheck shell=bash
+            # shellcheck disable=SC2154
+
+            create_manual_activation_file() {
+              unity-editor \
+                -batchmode \
+                -nographics \
+                -createManualActivationFile \
+                -quit \
+                -logfile /dev/null
+
+              # Check if license file was created successfully.
+              if ls Unity_v*.alf &> /dev/null; then return 0; else return 1; fi
+            }
+
+            if ! create_manual_activation_file; then
+              printf '%s\n' "Failed to create Unity license file."
+              printf '%s\n' "Please try again or open an issue."
+              exit 1
+            fi
+
+            mv Unity_v*.alf Unity.alf
+          name: Create Unity activation file
+      - store_artifacts:
+          path: Unity.alf
+
 workflows:
-  create-unity-activation-file:
+  my-custom-workflow:
     jobs:
-      - unity/create-activation-file:
-          editor_version: 2022.3.10f1
+      - custom-unity-activation
+# ================================== End License ================================== #
+
+# workflows:
   # build-unity-project:
   #   jobs:
   #     - unity/build:
