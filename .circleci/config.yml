@@ -73,7 +73,7 @@ workflows:
           compress: true
           context: unity
           build-method: 'UnityCircleCIBuildScript.BuildSingle'
-          custom-parameters: '-keyChain "PROD/PC/Windows x64 (App)/Mono"'
+          custom-parameters: '-keyChain PROD/PC/Windows_x64_(App)/Mono' # Underscore will be replaced with space
           
       # - unity/build:
       #     name: 'build-windows-il2cpp'

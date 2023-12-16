@@ -19,6 +19,8 @@ public static class UnityCircleCIBuildScript
     public static void BuildSingle()
     {
         var keyChain = GetArg("-keyChain");
+        if (!string.IsNullOrEmpty(keyChain))
+            keyChain = keyChain.Replace("_", " ");
         BuildProject.BuildSingle(keyChain, UnityEditor.BuildOptions.None);
     }
 
